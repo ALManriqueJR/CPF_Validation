@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html>
+
+	<body>
+			<b> Validador de CPF </b>
+			
+			<hr>
+			
+			<p style="font-size:10px;"> *CPF sem pontos ou traço</p>
+			<input id="cpf" type="text" placeholder="xxx.xxx.xxx-xx"> </input>
+			<input type="button" onclick="validCpf();" value="Validar"> </input>
+			
+			
+	</body>
+
+	<script>
+		
+		function validCpf(){
+		
+			var cpf = String(document.getElementById("cpf").value);
+			
+			var digit1 = cpf[9];
+			var digit2 = cpf[10];
+			
+			var digit1Check = 0;
+			var digit2Check = 0;
+			
+			var soma = 0 ;
+			
+			//#1 Digito
+			for(i=0;i<9;i++){
+				soma += Number(cpf[i] * (10-i));
+			}
+			
+			digit1Check = soma;
+			digit1Check = divNsub(digit1Check);
+			soma = 0;
+			
+			//#2 Digito
+			for(i=0;i<10;i++){
+				if(i == 9){
+					soma += digit1Check * 2;
+				}else{
+					soma += Number(cpf[i] * (11-i));
+				}
+			}
+			
+			digit2Check = soma;
+			digit2Check = divNsub(digit2Check);
+			
+			
+			if(digit1 == digit1Check && digit2 == digit2Check){
+				alert("CPF validado com sucesso!");
+			}else{
+				alert("CPF inválido! Confirme novamente.");
+			}
+			
+			
+			//subrotina
+			function divNsub(sum){
+			
+				var aux = sum % 11;
+				var digitVerified = 11 - aux;
+				
+				return digitVerified;
+			
+			}
+						
+			
+		}
+		
+	</script>
+
+
+
+</html>
